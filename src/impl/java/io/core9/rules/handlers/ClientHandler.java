@@ -11,20 +11,21 @@ public class ClientHandler implements RuleHandler {
 
 	@Override
 	public Status handle(Rule rule, Request request, Status status) {
+		Status clientStatus = new Status(Type.PROCESS);
 		if(rule.getClients() == null) {
-			return status.setType(Type.PROCESS);
+			return clientStatus;
 		} else {
 			String requester = request.getSourceHost();
 			for(Client client : rule.getClients()) {
 				if(requester.equals(client.getIp())) {
 					if(client.getModifier() == Modifier.NOT) {
-						return status.setType(Type.DENY);
+						return clientStatus.setType(Type.DENY);
 					} else {
-						return status.setType(Type.PROCESS);
+						return clientStatus.setType(Type.ALLOW);
 					}
 				}
 			}
-			return status.setType(Type.DENY);
+			return clientStatus.setType(Type.PROCESS);
 		}
 	}
 }
