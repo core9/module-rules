@@ -23,5 +23,4 @@ dependencies {
 	apiCompile 'io.core9:core-api:+'
 	apiCompile 'io.core9:module-server-api:+'
 	apiCompile 'io.core9:module-database-api:+'
-	implCompile 'io.core9:module-database-mongodb-api:+'
 }

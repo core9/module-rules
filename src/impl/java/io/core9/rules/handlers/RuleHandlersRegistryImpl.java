@@ -19,5 +19,11 @@ public class RuleHandlersRegistryImpl implements RuleHandlersRegistry {
 	public RuleHandler getHandler(String ruleType) {
 		return handlers.get(ruleType);
 	}
+
+	@Override
+	public void execute() {
+		this.handlers.put("ALLOW", new AllowHandler());
+		this.handlers.put("DENY", new DenyHandler());
+	}
 	
 }
