@@ -15,7 +15,7 @@ public class AllowHandler extends ClientHandler {
 				return clientStatus.setType(Type.ALLOW);
 			}
 		}
-		return clientStatus.setType(Type.DENY);
+		return clientStatus.setType(Type.PROCESS);
 	}
 
 }
