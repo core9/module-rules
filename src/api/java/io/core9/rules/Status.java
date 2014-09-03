@@ -33,6 +33,6 @@ public class Status {
 	}
 
 	public enum Type {
-		ALLOW, DENY, PROCESS, JUMP, INITIALIZED;
+		ALLOW, DENY, PROCESS, JUMP, INITIALIZED, PROCESSED;
 	}
 }

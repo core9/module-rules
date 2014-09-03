@@ -68,6 +68,8 @@ public class RulesEngineImpl implements RulesEngine {
 				return status;
 			case PROCESS:
 				continue;
+			case PROCESSED:
+				return status;
 			case JUMP:
 			default:
 				throw new UnsupportedOperationException("Not yet implemented");
@@ -86,6 +88,8 @@ public class RulesEngineImpl implements RulesEngine {
 					return status;
 				case PROCESS:
 					continue;
+				case PROCESSED:
+					return status;
 				case JUMP:
 				default:
 					throw new UnsupportedOperationException("Not yet implemented");
