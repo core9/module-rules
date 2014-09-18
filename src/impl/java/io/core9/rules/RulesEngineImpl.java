@@ -15,7 +15,7 @@ import net.xeoh.plugins.base.annotations.events.PluginLoaded;
 import net.xeoh.plugins.base.annotations.injections.InjectPlugin;
 
 @PluginImplementation
-public class RulesEngineImpl implements RulesEngine {
+public class RulesEngineImpl extends AbstractRulesEngine implements RulesEngine<Object, Status> {
 	
 	private static final RulesRegistry REGISTRY = new RulesRegistry();
 	
@@ -30,12 +30,6 @@ public class RulesEngineImpl implements RulesEngine {
 	}
 
 	@Override
-	public RulesEngine addRuleSet(VirtualHost vhost, RuleSet ruleSet) {
-		REGISTRY.addRuleSet(vhost, ruleSet);
-		return this;
-	}
-	
-	@Override
 	public void addVirtualHost(VirtualHost vhost) {
 		ruleSetRepository.getAll(vhost).forEach(ruleSet -> {
 			REGISTRY.addRuleSet(vhost, ruleSet);
@@ -46,22 +40,51 @@ public class RulesEngineImpl implements RulesEngine {
 	public void removeVirtualHost(VirtualHost vhost) {
 		REGISTRY.remove(vhost);
 	}
-	
+
 	@Override
-	public Status handle(String identifier, Request request) {
-		Status status = new Status(Type.INITIALIZED);
-		return handleRule(REGISTRY.getRuleSet(request.getVirtualHost(), identifier), request, status);
+	public RulesEngine addRuleSet(VirtualHost vhost, RuleSet ruleSet) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Status handle(List<String> identifiers, Request request) {
+	public Status handle(VirtualHost vhost, String ruleSet, Object context) {
 		Status status = new Status(Type.INITIALIZED);
-		return handleRules(REGISTRY.getRuleSets(request.getVirtualHost(), identifiers), request, status);
+		return handleRule(vhost, context, status);
+	}
+
+	@Override
+	public Status handle(VirtualHost vhost, List<String> ruleSets, Object context) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public Status handleRule(RuleSet ruleSet, Request request, Status status) {
+	
+
+//	@Override
+//	public RulesEngine addRuleSet(VirtualHost vhost, RuleSet ruleSet) {
+//		REGISTRY.addRuleSet(vhost, ruleSet);
+//		return this;
+//	}
+	
+
+//
+//	
+	
+//	@Override
+//	public Status handle(String identifier, Object context) {
+//		
+//	}
+//
+//	@Override
+//	public Status handle(List<String> identifiers, Object context) {
+//		Status status = new Status(Type.INITIALIZED);
+//		return handleRules(REGISTRY.getRuleSets(request.getVirtualHost(), identifiers), context, status);
+//	}
+//	
+	public Status handleRule(RuleSet ruleSet, Object context, Status status) {
 		for(Rule rule : ruleSet.getRules()) {
-			status = registry.getHandler(rule.getType()).handle(rule, request, status);
+			status = registry.getHandler(rule.getType()).handle(rule, context, status);
 			switch(status.getType()) {
 			case ALLOW:
 			case DENY:
@@ -77,25 +100,25 @@ public class RulesEngineImpl implements RulesEngine {
 		}
 		return status.setType(Type.DENY);
 	}
-	
-	public Status handleRules(List<RuleSet> ruleSets, Request request, Status status) {
-		for(RuleSet ruleSet : ruleSets) {
-			for(Rule rule : ruleSet.getRules()) {
-				status = registry.getHandler(rule.getType()).handle(rule, request, status);
-				switch(status.getType()) {
-				case ALLOW:
-				case DENY:
-					return status;
-				case PROCESS:
-					continue;
-				case PROCESSED:
-					return status;
-				case JUMP:
-				default:
-					throw new UnsupportedOperationException("Not yet implemented");
-				}
-			}
-		}
-		return status.setType(Type.DENY);
-	}	
+//	
+//	public Status handleRules(List<RuleSet> ruleSets, Request request, Status status) {
+//		for(RuleSet ruleSet : ruleSets) {
+//			for(Rule rule : ruleSet.getRules()) {
+//				status = registry.getHandler(rule.getType()).handle(rule, request, status);
+//				switch(status.getType()) {
+//				case ALLOW:
+//				case DENY:
+//					return status;
+//				case PROCESS:
+//					continue;
+//				case PROCESSED:
+//					return status;
+//				case JUMP:
+//				default:
+//					throw new UnsupportedOperationException("Not yet implemented");
+//				}
+//			}
+//		}
+//		return status.setType(Type.DENY);
+//	}	
 }

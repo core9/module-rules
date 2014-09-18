@@ -11,11 +11,11 @@ public class RulesRegistry {
 	
 	private Map<VirtualHost, Map<String, RuleSet>> rules = new HashMap<>();
 	
-	public RuleSet getRuleSet(VirtualHost vhost, String identifier) {
+	public RuleSet getRuleSet(VirtualHost vhost, String rulesetIdentifier) {
 		if(!rules.containsKey(vhost)) {
 			rules.put(vhost, new HashMap<>());
 		}
-		return rules.get(vhost).get(identifier);
+		return rules.get(vhost).get(rulesetIdentifier);
 	}
 	
 	public void addRuleSet(VirtualHost vhost, RuleSet ruleSet) {
@@ -25,10 +25,10 @@ public class RulesRegistry {
 		rules.get(vhost).put(ruleSet.get_id(), ruleSet);
 	}
 	
-	public List<RuleSet> getRuleSets(VirtualHost vhost, List<String> identifiers) {
+	public List<RuleSet> getRuleSets(VirtualHost vhost, List<String> rulesetIdentifiers) {
 		List<RuleSet> result = new ArrayList<RuleSet>();
-		identifiers.forEach(identifier -> {
-			result.add(rules.get(vhost).get(identifier));
+		rulesetIdentifiers.forEach(identifier -> {
+			result.add(rules.get(vhost).get(rulesetIdentifiers));
 		});
 		return result;
 	}

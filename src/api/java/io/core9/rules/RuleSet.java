@@ -23,7 +23,7 @@ public class RuleSet extends AbstractCrudEntity implements CrudEntity {
 	@Override
 	public Map<String, Object> retrieveDefaultQuery() {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("configtype", "firewallrule");
+		result.put("configtype", "ruleset");
 		return result;
 	}
 
