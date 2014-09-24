@@ -52,19 +52,15 @@ public abstract class AbstractRulesEngine<T, K> implements RulesEngine<T, K> {
 	}
 	
 	@Override
-	public K handle(VirtualHost vhost, String ruleSet, T context) throws RuleException {
+	public K handle(VirtualHost vhost, String ruleSet, T context, K result) throws RuleException {
 		RuleSet set = registry.getRuleSet(vhost, ruleSet);
-		// TODO Instantiate on initiation value
-		K result = null;
 		return handleRuleset(set, context, result);
 	}
 	
 	@Override
-	public K handle(VirtualHost vhost, List<String> ruleSets, T context) throws RuleException {
-		K result = null;
+	public K handle(VirtualHost vhost, List<String> ruleSets, T context, K result) throws RuleException {
 		for(String ruleSet : ruleSets) {
 			RuleSet set = registry.getRuleSet(vhost, ruleSet);
-			// TODO Instantiate on initiation value
 			result = handleRuleset(set, context, result);
 		}
 		return result;
