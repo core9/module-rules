@@ -15,7 +15,7 @@ import net.xeoh.plugins.base.annotations.events.PluginLoaded;
 import net.xeoh.plugins.base.annotations.injections.InjectPlugin;
 
 @PluginImplementation
-public class RulesEngineImpl extends AbstractRulesEngine implements RulesEngine<Object, Status> {
+public class RulesEngineImpl<T, K> extends AbstractRulesEngine<T,K> implements RulesEngine<Object, Status> {
 	
 	private static final RulesRegistry REGISTRY = new RulesRegistry();
 	
