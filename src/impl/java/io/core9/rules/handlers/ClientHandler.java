@@ -7,7 +7,7 @@ import io.core9.rules.Rule;
 import io.core9.rules.Status;
 import io.core9.rules.Status.Type;
 
-public class ClientHandler implements RuleHandler {
+public class ClientHandler implements RuleHandler<Request, Status> {
 
 	@Override
 	public Status handle(Rule rule, Request request, Status status) {

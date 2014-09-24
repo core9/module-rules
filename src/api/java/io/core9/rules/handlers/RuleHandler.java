@@ -2,8 +2,8 @@ package io.core9.rules.handlers;
 
 import io.core9.rules.Rule;
 
-public interface RuleHandler<T> {
+public interface RuleHandler<T, K> {
 	
-	<K> K handle(Rule rule, T context, K status);
+	K handle(Rule rule, T context, K status);
 
 }

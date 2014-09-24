@@ -13,15 +13,15 @@ public interface RulesEngine<T, K> extends VirtualHostProcessor, Core9Plugin {
 
 	RulesEngine<T,K> addRuleSet(VirtualHost vhost, RuleSet ruleSet);
 	
-	RulesEngine<T,K> addRuleHandler(String ruleType, RuleHandler<T> handler);
+	RulesEngine<T,K> addRuleHandler(String ruleType, RuleHandler<T, K> handler);
 	
-	RuleHandler<T> getHandler(String ruleType);
+	RuleHandler<T, K> getHandler(String ruleType);
 	
-	K handleRuleset(RuleSet ruleSet, T context, K result);
+	K handleRuleset(RuleSet ruleSet, T context, K result) throws RuleException;
 
-	K handle(VirtualHost vhost, String ruleSet, T context);
+	K handle(VirtualHost vhost, String ruleSet, T context) throws RuleException;
 	
-	K handle(VirtualHost vhost, List<String> ruleSets, T context);
+	K handle(VirtualHost vhost, List<String> ruleSets, T context) throws RuleException;
 
 	
 	
