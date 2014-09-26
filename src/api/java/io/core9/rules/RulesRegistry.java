@@ -32,6 +32,10 @@ public class RulesRegistry {
 		});
 		return result;
 	}
+	
+	public Map<String, RuleSet> getRuleSets(VirtualHost vhost) {
+		return rules.get(vhost);
+	}
 
 	public void remove(VirtualHost vhost) {
 		rules.remove(vhost);
