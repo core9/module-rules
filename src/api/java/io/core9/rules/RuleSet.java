@@ -11,6 +11,7 @@ import java.util.Map;
 public class RuleSet extends AbstractCrudEntity implements CrudEntity {
 
 	private Rule[] rules;
+	private String configtype;
 
 	public Rule[] getRules() {
 		return rules;
@@ -18,6 +19,14 @@ public class RuleSet extends AbstractCrudEntity implements CrudEntity {
 
 	public void setRules(Rule[] rules) {
 		this.rules = rules;
+	}
+	
+	public String getConfigtype() {
+		return this.configtype;
+	}
+	
+	public void setConfigtype(String configtype) {
+		this.configtype = configtype;
 	}
 
 	@Override
